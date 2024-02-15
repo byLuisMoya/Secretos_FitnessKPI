@@ -24,6 +24,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/secrets', [SecretController::class, 'store']);
+    Route::get('/secrets', [SecretController::class, 'index']);
 });
-
-// Route::post('/secrets', [SecretController::class, 'store']);

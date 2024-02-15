@@ -11,8 +11,15 @@
                     </span>
                 </button>
             </div>
-            <div id="Content">
+            <div id="Content" class="flex flex-wrap justify-center">
 
+                <div v-for="secret in secrets" :key="secret.id" @click="toggleSecret(secret.id)" class="m-3 bg-white rounded-lg shadow-lg cursor-pointer w-64 h-52">
+                    <img v-if="!secret.showContent" class="h-full w-full object-contain" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Imagen de la tarjeta">
+                    <div v-else class="p-6 overflow-y-auto h-full">
+                        <p class="text-xl font-semibold text-gray-900">{{ secret.secret }}</p>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </main>
@@ -47,6 +54,25 @@ import Header from '../Components/Header.vue';
 import Footer from '../Components/Footer.vue';
 import { ref } from 'vue';
 import axios from 'axios';
+import { onMounted } from 'vue';
+
+let secrets = ref([]);
+
+onMounted(async () => {
+    try {
+        const response = await axios.get('/api/secrets');
+        secrets.value = response.data.map(secret => ({ ...secret, showContent: false }));
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+const toggleSecret = (id) => {
+    const secret = secrets.value.find(secret => secret.id === id);
+    if (secret) {
+        secret.showContent = !secret.showContent;
+    }
+};
 
 const showModal = ref(false);
 const secret = ref('');
@@ -71,10 +97,13 @@ const saveSecret = async () => {
 
     try {
         
-    axios.defaults.withCredentials = true;
+        axios.defaults.withCredentials = true;
         const response = await axios.post('/api/secrets', { secret: secret.value});
-        console.log(response.data);
+        // console.log(response.data);
         closeModal();
+
+        const secretsResponse = await axios.get('/api/secrets');
+        secrets.value = secretsResponse.data;
     } catch (error) {
         console.error(error);
     }

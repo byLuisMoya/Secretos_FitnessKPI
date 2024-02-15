@@ -10,10 +10,11 @@ use Illuminate\Support\Facades\Log;
 class SecretController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
+    public function index()
+    {
+        $secrets = Secret::where('user_id', Auth::id())->get();
+        return response()->json($secrets);
+    }   
 
     public function store(Request $request)
     {
@@ -21,11 +22,6 @@ class SecretController extends Controller
             'secret' => 'required|max:200',
         ]);
         
-        // dd(Auth::id());
-         // Imprime la información del usuario autenticado
-        // $user = Auth::user();
-        // dd('User: '.$id);
-
         $secret = new Secret;
         $secret->user_id = Auth::id();
         $secret->secret = $request->secret;
