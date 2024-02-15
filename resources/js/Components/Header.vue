@@ -34,9 +34,9 @@
                             </template>
 
                             <template #content>
-                                <DropdownLink :href="route('profile.edit')"> Profile </DropdownLink>
+                                <DropdownLink :href="route('profile.edit')"> Perfil </DropdownLink>
                                 <DropdownLink :href="route('logout')" method="post" as="button">
-                                    Log Out
+                                    Cerrar Sesión
                                 </DropdownLink>
                             </template>
                         </Dropdown>
@@ -62,4 +62,5 @@
 
     const { props } = usePage();
     const user = props.auth.user;
+
 </script>

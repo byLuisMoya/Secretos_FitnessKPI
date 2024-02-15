@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -29,9 +30,17 @@ Route::get('/', function () {
     return Inertia::render('Inicio');
 })->name('inicio');
 
-Route::get('/secretos', function () {
-    return Inertia::render('Secretos');
-})->name('secretos');
+// Route::get('/secretos', function () {
+//     return Inertia::render('Secretos');
+// })->middleware('auth')->name('secretos');
+
+Route::group(['middleware' => ['web']], function () {
+    // Tus rutas aquí
+    Route::get('/secretos', function () {
+        return Inertia::render('Secretos');
+    })->middleware('auth')->name('secretos');
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
