@@ -20,7 +20,8 @@
 
                 <!-- Aqui se muestra una imagen si el resultado de la longitud del GET es 0 -->
                 <div v-if="secrets.length === 0" class="m-3 w-64 h-52">
-                    <img class="h-full w-full object-contain" src="../../assets/images/logoTS-SINFONDO.png" alt="Imagen cuando no hay secretos">
+                    <img class="h-96 w-auto object-contain" src="../../assets/images/blankstate.svg" alt="Imagen cuando no hay secretos">
+                    <p class="text-sm mt-3">Ahora mismo no hay ningún secreto. <br><b>¡Crea tu primer Secreto!</b></p>
                 </div>
 
                 <!-- Aqui se muestra los secretos mediant un for -->
