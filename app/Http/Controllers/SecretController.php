@@ -21,7 +21,7 @@ class SecretController extends Controller
             'secret' => 'required|max:200',
         ]);
         
-        dd(Auth::id());
+        // dd(Auth::id());
          // Imprime la información del usuario autenticado
         // $user = Auth::user();
         // dd('User: '.$id);
