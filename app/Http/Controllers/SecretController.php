@@ -29,4 +29,16 @@ class SecretController extends Controller
 
         return response()->json(['message' => 'Secret created successfully']);
     }
+
+    public function destroy($id)
+    {
+        $secret = Secret::where('user_id', Auth::id())->where('id', $id)->first();
+
+        if ($secret) {
+            $secret->delete();
+            return response()->json(['message' => 'Secret deleted successfully']);
+        } else {
+            return response()->json(['message' => 'Secret not found'], 404);
+        }
+    }
 }

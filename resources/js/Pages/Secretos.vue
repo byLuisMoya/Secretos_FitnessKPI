@@ -4,22 +4,35 @@
     <main class="min-h-screen bg-slate-700 text-white text-center">
         <div class="prose mx-auto p-6 space-y-6">
             <h1 class="text-3xl font-bold underline">Tus Secretos</h1>
-            <div class="flex justify-start">
-                <button @click="openModal" class="flex justify-center items-center text-xl py-1 px-2 rounded border-solid border-2 border-gray-900 bg-gray-900 hover:bg-slate-700 transition duration-150 ease-out hover:ease-in">Nuevo Secreto 
-                    <span class="text-xl material-symbols-outlined">
-                        add
-                    </span>
-                </button>
+            <div class="flex justify-between">
+                <div class="flex justify-start">
+                    <button @click="openModal" class="flex justify-center items-center text-xl py-1 px-2 rounded border-solid border-2 border-gray-900 bg-gray-900 hover:bg-slate-700 transition duration-150 ease-out hover:ease-in">Nuevo Secreto 
+                        <span class="text-xl material-symbols-outlined">
+                            add
+                        </span>
+                    </button>
+                </div>
+                <div class="flex justify-end">
+                    <p>"Cuando abras un Secreto tendrás 5 segundos para leerlo"</p>
+                </div>
             </div>
             <div id="Content" class="flex flex-wrap justify-center">
 
-                <div v-for="secret in secrets" :key="secret.id" @click="toggleSecret(secret.id)" class="m-3 bg-white rounded-lg shadow-lg cursor-pointer w-64 h-52">
+                <!-- Aqui se muestra una imagen si el resultado de la longitud del GET es 0 -->
+                <div v-if="secrets.length === 0" class="m-3 w-64 h-52">
+                    <img class="h-full w-full object-contain" src="../../assets/images/logoTS-SINFONDO.png" alt="Imagen cuando no hay secretos">
+                </div>
+
+                <!-- Aqui se muestra los secretos mediant un for -->
+                <div v-else v-for="secret in secrets" :key="secret.id" @click="toggleSecret(secret.id)" class="m-3 bg-gray-900 text-white rounded-lg shadow-lg cursor-pointer w-64 h-52 hover:bg-gray-950 transition duration-150 ease-out hover:ease-in">
                     <img v-if="!secret.showContent" class="h-full w-full object-contain" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Imagen de la tarjeta">
                     <div v-else class="p-6 overflow-y-auto h-full">
-                        <p class="text-xl font-semibold text-gray-900">{{ secret.secret }}</p>
+                        <p class="text-xl font-semibold">{{ secret.secret }}</p>
+            
+                        <p class="text-sm mt-5">En 5 segs. este secreto se autodestruirá</p>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </main>
@@ -58,6 +71,7 @@ import { onMounted } from 'vue';
 
 let secrets = ref([]);
 
+// obtiene los secretos cuando se carga la página
 onMounted(async () => {
     try {
         const response = await axios.get('/api/secrets');
@@ -67,10 +81,28 @@ onMounted(async () => {
     }
 });
 
+// borra el secreto
+const deleteSecret = async (id) => {
+    try {
+        await axios.delete(`/api/secrets/${id}`);
+        secrets.value = secrets.value.filter(secret => secret.id !== id);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+// muestra el contenido del secreto y a los 5 segs lo borra
 const toggleSecret = (id) => {
     const secret = secrets.value.find(secret => secret.id === id);
     if (secret) {
-        secret.showContent = !secret.showContent;
+        secret.showContent = true;
+
+        if(secret.showContent) {
+            setTimeout(() => {
+                // console.log('Borrando secreto', secret.id);
+                deleteSecret(secret.id)
+            }, 5000);
+        }
     }
 };
 
@@ -85,6 +117,7 @@ const closeModal = () => {
     showModal.value = false;
 };
 
+// guarda el secreto y vuelve a hacer una peticion GET
 const saveSecret = async () => {
     if(secret.value.length > 200) {
         alert('El secreto no puede tener más de 200 caracteres');
