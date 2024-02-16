@@ -20,6 +20,10 @@ export default {
             // fontFamily: {
             //     sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             // },
+            brightness: {
+                25: '.25',
+                40: '.40',
+            }
         },
     },
 

@@ -4,7 +4,7 @@
     <main class="min-h-screen bg-slate-700 text-white text-center">
         <div class="prose mx-auto p-6 space-y-6">
             <h1 class="text-3xl font-bold underline">Tus Secretos</h1>
-            <div class="flex justify-between">
+            <div class="flex flex-col-reverse items-center gap-5 sm:flex-row sm:justify-between">
                 <div class="flex justify-start">
                     <button @click="openModal" class="flex justify-center items-center text-xl py-1 px-2 rounded border-solid border-2 border-gray-900 bg-gray-900 hover:bg-slate-700 transition duration-150 ease-out hover:ease-in">Nuevo Secreto 
                         <span class="text-xl material-symbols-outlined">
@@ -47,7 +47,7 @@
             <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <p class="text-xs">200 carácteres max.</p>
-                    <textarea v-model="secret" class="w-full h-20 p-2 border rounded" maxlength="200"></textarea>
+                    <textarea v-model="secret" @keydown.enter="saveSecret" class="w-full h-20 p-2 border rounded" maxlength="200"></textarea>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                     <button @click="saveSecret" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">

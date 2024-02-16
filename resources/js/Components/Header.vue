@@ -1,5 +1,5 @@
 <template>
-    <header class="flex justify-between align-center px-5 py-5 bg-gray-900 text-white">
+    <header class="flex flex-col items-center sm:flex-row sm:justify-between sm:align-center px-5 py-5 bg-gray-900 text-white">
         <Link href="/">
             <img class="h-20" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Logo tus secretos">
         </Link>
