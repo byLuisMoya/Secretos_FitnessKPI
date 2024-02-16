@@ -59,18 +59,25 @@ Y ya por fín podríamos ver nuestro poryecto en marcha.
 
 Voy a dejar algunas capturas sobre la vista del proyecto:
 
+Landing Page:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/1081f332-7aa5-4a6d-a012-b89f909a487b)
 
+Página de Inicio de Sesión:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/3bfbd24a-be6e-42ef-aea6-56affd1116b5)
 
+Página de Registro:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/cccaf12d-2d50-494b-bdd3-3c3b6ba2ad27)
 
+Página de Secretos Vacía:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/6d45fdb6-923c-4129-af62-5ae835035b9a)
 
+Página de Secretos con Contenido:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/ede4ffb9-ffd6-4b75-9ca1-f862672a9466)
 
+Página de Secretos descubriendo un Secreto:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/bfd722e7-d47a-4939-a44a-d943bf43c67f)
 
+Página de Secretos con 1 solo Secreto:
 ![image](https://github.com/byLuisMoya/Secretos_FitnessKPI/assets/86807831/4e81e89e-649d-4a12-a201-6e4e2b530118)
 
 
