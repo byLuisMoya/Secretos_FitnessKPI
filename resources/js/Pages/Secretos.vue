@@ -23,14 +23,19 @@
                     <img class="h-96 w-auto object-contain" loading="lazy" src="../../assets/images/blankstate.svg" alt="Imagen cuando no hay secretos">
                     <p class="text-sm mt-3">Ahora mismo no hay ningún secreto. <br><b>¡Crea tu primer Secreto!</b></p>
                 </div>
-
-                <!-- Aqui se muestra los secretos mediant un for -->
+                <!-- Aqui se muestra una tarjeta con una imagen determinada y 
+                    al clicar se desvanece para aparecer el texto corresponiente -->
                 <div v-else v-for="secret in secrets" :key="secret.id" @click="toggleSecret(secret.id)" class="m-3 bg-gray-900 text-white rounded-lg shadow-lg cursor-pointer w-64 h-52 hover:bg-gray-950 transition duration-150 ease-out hover:ease-in">
-                    <img v-if="!secret.showContent" class="h-full w-full object-contain" loading="lazy" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Imagen de la tarjeta">
-                    <div v-else class="p-6 overflow-y-auto h-full">
-                        <p class="text-xl font-semibold">{{ secret.secret }}</p>
-            
-                        <p class="text-sm mt-5">En 5 segs. este secreto se autodestruirá</p>
+                    <div class="relative h-full w-full">
+                        <transition name="fade">
+                            <img v-if="!secret.showContent" class="absolute h-full w-full object-contain" loading="lazy" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Imagen de la tarjeta">
+                        </transition>
+                        <transition name="fade">
+                            <div v-if="secret.showContent" class="p-6 overflow-y-auto h-full">
+                                <p class="text-xl font-semibold">{{ secret.secret }}</p>
+                                <p class="text-sm mt-5">En 5 segs. este secreto se autodestruirá</p>
+                            </div>
+                        </transition>
                     </div>
                 </div>
 
@@ -68,6 +73,7 @@ import Footer from '../Components/Footer.vue';
 import { ref } from 'vue';
 import axios from 'axios';
 import { onMounted } from 'vue';
+import { Transition } from 'vue';
 
 let secrets = ref([]);
 
@@ -142,3 +148,12 @@ const saveSecret = async () => {
     }
 };
 </script>
+
+<style scoped>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to{
+        opacity: 0;
+    }
+</style>
