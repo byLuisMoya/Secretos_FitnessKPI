@@ -20,13 +20,13 @@
 
                 <!-- Aqui se muestra una imagen si el resultado de la longitud del GET es 0 -->
                 <div v-if="secrets.length === 0" class="m-3 w-64 h-52">
-                    <img class="h-96 w-auto object-contain" src="../../assets/images/blankstate.svg" alt="Imagen cuando no hay secretos">
+                    <img class="h-96 w-auto object-contain" loading="lazy" src="../../assets/images/blankstate.svg" alt="Imagen cuando no hay secretos">
                     <p class="text-sm mt-3">Ahora mismo no hay ningún secreto. <br><b>¡Crea tu primer Secreto!</b></p>
                 </div>
 
                 <!-- Aqui se muestra los secretos mediant un for -->
                 <div v-else v-for="secret in secrets" :key="secret.id" @click="toggleSecret(secret.id)" class="m-3 bg-gray-900 text-white rounded-lg shadow-lg cursor-pointer w-64 h-52 hover:bg-gray-950 transition duration-150 ease-out hover:ease-in">
-                    <img v-if="!secret.showContent" class="h-full w-full object-contain" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Imagen de la tarjeta">
+                    <img v-if="!secret.showContent" class="h-full w-full object-contain" loading="lazy" src="../../assets/images/tusecretos2-sinfondo.svg" alt="Imagen de la tarjeta">
                     <div v-else class="p-6 overflow-y-auto h-full">
                         <p class="text-xl font-semibold">{{ secret.secret }}</p>
             
@@ -41,10 +41,9 @@
 
     <!-- Modal -->
     <div v-if="showModal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div class="flex items-center sm:items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
-            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="inline-block align-middle bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <p class="text-xs">200 carácteres max.</p>
                     <textarea v-model="secret" @keydown.enter="saveSecret" class="w-full h-20 p-2 border rounded" maxlength="200"></textarea>
@@ -99,8 +98,7 @@ const toggleSecret = (id) => {
         secret.showContent = true;
 
         if(secret.showContent) {
-            setTimeout(() => {
-                // console.log('Borrando secreto', secret.id);
+            setTimeout(() => {                
                 deleteSecret(secret.id)
             }, 5000);
         }
@@ -135,6 +133,7 @@ const saveSecret = async () => {
         const response = await axios.post('/api/secrets', { secret: secret.value});
         // console.log(response.data);
         closeModal();
+        secret.value = '';
 
         const secretsResponse = await axios.get('/api/secrets');
         secrets.value = secretsResponse.data;
