@@ -9,4 +9,5 @@ Para comenzar con la puesta a punto de este proyecto de Laravle + Vue necesitamo
 ## Paso 1
 
 Lo primero que debeso hacer es clonar el proyecto, ya sea descargandolo con Zip o mediante Git con este comando:
+
 `git clone https://github.com/byLuisMoya/Secretos_FitnessKPI.git`
